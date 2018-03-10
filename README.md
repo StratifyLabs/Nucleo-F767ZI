@@ -1,2 +1,5 @@
 # Nucleo-F767ZI
-Nucleo-F767ZI Board Support Package Coming Soon
+
+Stratify OS can be installed on the Nucleo-F767ZI board in less than one minute.
+
+[Learn More](https://stratifylabs.co/hardware/nucleo144/)
