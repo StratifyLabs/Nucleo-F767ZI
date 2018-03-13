@@ -42,7 +42,7 @@ limitations under the License.
 
 //openocd -f interface/stlink-v2-1.cfg -f target/stm32f4x_stlink.cfg
 
-#define SOS_BOARD_SYSTEM_CLOCK 168000000
+#define SOS_BOARD_SYSTEM_CLOCK 216000000
 #define SOS_BOARD_PERIPH_CLOCK (SOS_BOARD_SYSTEM_CLOCK/4)
 #define SOS_BOARD_SYSTEM_MEMORY_SIZE (8192*3)
 #define SOS_BOARD_TASK_TOTAL 10
@@ -117,9 +117,9 @@ const sos_board_config_t sos_board_config = {
     .stdout_dev = "/dev/stdio-out",
     .stderr_dev = "/dev/stdio-out",
     .o_sys_flags = SYS_FLAG_IS_STDIO_FIFO | SYS_FLAG_IS_TRACE,
-    .sys_name = "Nucleo-F429ZI",
-    .sys_version = "0.4",
-    .sys_id = "-L6TkvdQalXZTxgM_74-",
+    .sys_name = "Nucleo-F767ZI",
+    .sys_version = "0.1",
+    .sys_id = "",
     .sys_memory_size = SOS_BOARD_SYSTEM_MEMORY_SIZE,
     .start = sos_default_thread,
     .start_args = &link_transport,

@@ -21,7 +21,7 @@ set(CMAKE_TOOLCHAIN_FILE ${SOS_TOOLCHAIN_CMAKE_PATH}/sos-bsp-toolchain.cmake)
 get_filename_component(SOS_BSP_NAME ${CMAKE_SOURCE_DIR} NAME)
 project(${SOS_BSP_NAME} CXX C)
 
-set(SOS_BSP_ARCH v7em_f4sh)
+set(SOS_BSP_ARCH v7em_f5dh)
 set(SOS_BSP_DEVICE stm32f767zi)
 set(SOS_BSP_DEVICE_FAMILY stm32f767xx)
 set(SOS_BSP_HARDWARD_ID 0x00000014)
