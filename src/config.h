@@ -46,13 +46,13 @@ limitations under the License.
 #define STM32_ARCH_CLOCK_PLLN 216
 #define STM32_ARCH_CLOCK_PLLP 2
 #define STM32_ARCH_CLOCK_PLLQ 9
-#define STM32_ARCH_CLOCK_PLLR 0
+#define STM32_ARCH_CLOCK_PLLR 2
 #define STM32_ARCH_CLOCK_AHB_CLOCK_DIVIDER 1
 #define STM32_ARCH_CLOCK_APB1_CLOCK_DIVIDER 4
 #define STM32_ARCH_CLOCK_APB2_CLOCK_DIVIDER 2
 #define STM32_ARCH_CLOCK_48_CLOCK_SELECTION 0
 #define STM32_ARCH_CLOCK_VOLTAGE_SCALE 1
-#define STM32_ARCH_CLOCK_FLASH_LATENCY 5
+#define STM32_ARCH_CLOCK_FLASH_LATENCY 7
 
 //--------------------------------------------Symbols-------------------------------------------------
 
