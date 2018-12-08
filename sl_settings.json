@@ -1,0 +1,18 @@
+{
+   "description": "This BSP can be used to run Stratify OS on the STM32F Nucleo-F767ZI board.",
+   "github": "https://github.com/StratifyLabs/Nucleo-F767ZI",
+   "name": "Nucleo-F767ZI",
+   "permissions": "public",
+   "publisher": "Stratify Labs, Inc",
+   "tags": "stm32,arm,cortex-m7",
+   "type": "os",
+   "uid": "9cQyOTk3fZXOuMtPyf5j9X4H4b83",
+   "version": "0.12",
+   "hardwaredId": "0x00000014",
+   "timestamp": 1544239466,
+   "documentId": "8fgoFM3GV4Kos65AegZT",
+   "buildList": {
+      "boPEesHxtiKGlx3BZjcx": "0.9",
+      "UcGLfcYGddDAnPIzDMT2": "0.12"
+   }
+}
