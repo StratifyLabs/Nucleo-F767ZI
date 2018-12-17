@@ -6,12 +6,14 @@
 #ifndef SL_CONFIG_H_
 #define SL_CONFIG_H_
 
-#define SL_CONFIG_VERSION_STRING "0.0"
-#define SL_CONFIG_VERSION_BCD 0x00
-#define SL_CONFIG_DOCUMENT_ID "unpublished"
-#define SL_CONFIG_NAME "unnamed"
-#define SL_CONFIG_TYPE "unknown"
-#define SL_CONFIG_HARDWARE_ID_STRING "0x00000000"
+#define SL_CONFIG_VERSION_STRING "0.12"
+#define SL_CONFIG_VERSION_BCD 0x0C
+#define SL_CONFIG_DOCUMENT_ID "8fgoFM3GV4Kos65AegZT"
+#define SL_CONFIG_NAME "Nucleo-F767ZI"
+#define SL_CONFIG_TYPE "os"
+#define SL_CONFIG_PUBLISHER "Stratify Labs, Inc"
+#define SL_CONFIG_PERMISSIONS "public"
+#define SL_CONFIG_HARDWARE_ID_STRING "0x00000014"
 
 #endif
 
