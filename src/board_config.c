@@ -37,7 +37,6 @@ ffifo_state_t board_trace_state;
 
 extern void SystemClock_Config();
 
-
 void board_trace_event(void * event){
 	link_trace_event_header_t * header = event;
 	devfs_async_t async;
@@ -75,6 +74,7 @@ void board_event_handler(int event, void * args){
 			break;
 
 		case MCU_BOARD_CONFIG_EVENT_START_INIT:
+
 			break;
 
 		case MCU_BOARD_CONFIG_EVENT_START_LINK:

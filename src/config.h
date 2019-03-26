@@ -24,7 +24,7 @@ limitations under the License.
 #include "board_config.h"
 
 //openocd -f interface/stlink-v2-1.cfg -f target/stm32f4x_stlink.cfg
-#define SOS_BOARD_DEBUG_FLAGS (MCU_DEBUG_INFO | MCU_DEBUG_SYS)
+#define SOS_BOARD_DEBUG_FLAGS (MCU_DEBUG_INFO | MCU_DEBUG_SYS | MCU_DEBUG_APPFS)
 
 
 #define SOS_BOARD_SYSTEM_CLOCK 216000000

@@ -23,6 +23,7 @@ limitations under the License.
 #include <mcu/mcu.h>
 #include <mcu/debug.h>
 #include <mcu/periph.h>
+#include <mcu/appfs.h>
 #include <device/sys.h>
 #include <device/uartfifo.h>
 #include <device/usbfifo.h>
@@ -40,6 +41,9 @@ limitations under the License.
 #include "sl_config.h"
 #include "link_config.h"
 
+#if !defined SOS_BOARD_FLAGS
+#define SOS_BOARD_FLAGS 0
+#endif
 
 //--------------------------------------------Stratify OS Configuration-------------------------------------------------
 const sos_board_config_t sos_board_config = {
@@ -48,7 +52,7 @@ const sos_board_config_t sos_board_config = {
 	.stdin_dev = "/dev/stdio-in" ,
 	.stdout_dev = "/dev/stdio-out",
 	.stderr_dev = "/dev/stdio-out",
-	.o_sys_flags = SYS_FLAG_IS_STDIO_FIFO | SYS_FLAG_IS_TRACE,
+	.o_sys_flags = SYS_FLAG_IS_STDIO_FIFO | SYS_FLAG_IS_TRACE | SOS_BOARD_FLAGS,
 	.sys_name = SL_CONFIG_NAME,
 	.sys_version = SL_CONFIG_VERSION_STRING,
 	.sys_id = SL_CONFIG_DOCUMENT_ID,
@@ -278,12 +282,49 @@ const devfs_device_t devfs_list[] = {
  *
  */
 
-const devfs_device_t mem0 = DEVFS_DEVICE("mem0", mcu_mem, 0, 0, 0, 0666, SOS_USER_ROOT, S_IFBLK);
+
+const devfs_device_t flash0 = DEVFS_DEVICE("flash0", mcu_flash, 0, 0, 0, 0666, SOS_USER_ROOT, S_IFBLK);
+
+
+#define APPFS_MEM_SECTION(arg_o_flags, arg_page_count, arg_page_size, arg_address) \
+{ .o_flags = arg_o_flags, .page_count = arg_page_count, .page_size = arg_page_size, .address = arg_address }
+
+#define FLASH_SECTION0_ADDRESS 0x08000000
+#define FLASH_SECTION0_PAGE_SIZE (32*1024)
+#define FLASH_SECTION0_PAGE_COUNT (4)
+#define FLASH_SECTION0_SIZE (FLASH_SECTION0_PAGE_SIZE*FLASH_SECTION0_PAGE_COUNT)
+
+#define FLASH_SECTION1_ADDRESS (FLASH_SECTION0_ADDRESS+FLASH_SECTION0_SIZE)
+#define FLASH_SECTION1_PAGE_SIZE (128*1024)
+#define FLASH_SECTION1_PAGE_COUNT (1)
+#define FLASH_SECTION1_SIZE (FLASH_SECTION1_PAGE_SIZE*FLASH_SECTION1_PAGE_COUNT)
+
+#define FLASH_SECTION2_ADDRESS (FLASH_SECTION1_ADDRESS+FLASH_SECTION1_SIZE)
+#define FLASH_SECTION2_PAGE_SIZE (256*1024)
+#define FLASH_SECTION2_PAGE_COUNT (7)
+#define FLASH_SECTION2_SIZE (FLASH_SECTION2_PAGE_SIZE*FLASH_SECTION2_PAGE_COUNT)
+
+u32 appfs_usage_table[APPFS_RAM_USAGE_WORDS(MCU_RAM_PAGES)] MCU_SYS_MEM;
+
+const appfs_mem_config_t appfs_mem_config = {
+	.usage_size = sizeof(appfs_usage_table),
+	.usage = appfs_usage_table,
+	.system_ram_page = 0,
+	.flash_driver = &flash0,
+	.section_count = 4,
+	.sections = {
+		APPFS_FLASH_SECTION(FLASH_SECTION0_PAGE_COUNT, FLASH_SECTION0_PAGE_SIZE, FLASH_SECTION0_ADDRESS),
+		APPFS_FLASH_SECTION(FLASH_SECTION1_PAGE_COUNT, FLASH_SECTION1_PAGE_SIZE, FLASH_SECTION1_ADDRESS),
+		APPFS_FLASH_SECTION(FLASH_SECTION2_PAGE_COUNT, FLASH_SECTION2_PAGE_SIZE, FLASH_SECTION2_ADDRESS),
+		APPFS_RAM_SECTION(MCU_RAM_PAGES, MCU_RAM_PAGE_SIZE, 0x20020000),
+	}
+};
+
+const devfs_device_t mem0 = DEVFS_DEVICE("mem0", appfs_mem, 0, &appfs_mem_config, 0, 0666, SOS_USER_ROOT, S_IFBLK);
+
 const sysfs_t sysfs_list[] = {
 	APPFS_MOUNT("/app", &mem0, SYSFS_ALL_ACCESS), //the folder for ram/flash applications
 	DEVFS_MOUNT("/dev", devfs_list, SYSFS_READONLY_ACCESS), //the list of devices
 	SYSFS_MOUNT("/", sysfs_list, SYSFS_READONLY_ACCESS), //the root filesystem (must be last)
 	SYSFS_TERMINATOR
 };
-
-
